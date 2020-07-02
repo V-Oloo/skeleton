@@ -1,0 +1,31 @@
+import {NgModule} from '@angular/core';
+import {RouterModule, Routes} from '@angular/router';
+import {DefaultLayoutComponent} from './default-layout.component';
+
+const routes: Routes = [
+  {
+    path: '',
+    component: DefaultLayoutComponent,
+    children: [
+      {
+        path: '',
+        loadChildren: () => import('@app/dashboard/dashboard.module').then(m => m.DashboardModule)
+      },
+      {
+        path: 'blank',
+        loadChildren: () => import('@app/content/pages/pages.module').then(m => m.PagesModule)
+      },
+      {
+        path: 'home',
+        loadChildren: () => import('@app/dashboard/dashboard.module').then(m => m.DashboardModule)
+      }
+    ]
+  }
+];
+
+@NgModule({
+  imports: [RouterModule.forChild(routes)],
+  exports: [RouterModule]
+})
+export class PagesRoutingModule {
+}
